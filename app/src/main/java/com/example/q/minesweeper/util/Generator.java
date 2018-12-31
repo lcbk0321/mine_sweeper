@@ -1,5 +1,7 @@
 package com.example.q.minesweeper.util;
 
+import android.util.Log;
+
 import java.util.Random;
 
 public class Generator {
@@ -23,6 +25,7 @@ public class Generator {
             }
         }
         grid = calculateNeighbors(grid, width, height);
+        Log.e("Generator","generate Ok");
         return grid;
     }
 

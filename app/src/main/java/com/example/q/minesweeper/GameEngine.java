@@ -1,24 +1,26 @@
 package com.example.q.minesweeper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.q.minesweeper.util.Generator;
 import com.example.q.minesweeper.util.PrintGrid;
 import com.example.q.minesweeper.views.grid.Cell;
 
+import java.nio.file.WatchEvent;
+
 public class GameEngine {
     private static GameEngine instance;
 
-    public static int BOMB_NUMBER = 10;
-    public static int WIDTH = 9;
-    public static int HEIGHT = 9;
-
+    public static int BOMB_NUMBER;
+    public static int WIDTH;
+    public static int HEIGHT;
     static int difficulty;
 
     private Context context;
+
 
     private Cell[][] MinesweeperGrid=new Cell[WIDTH][HEIGHT];
 
@@ -29,11 +31,16 @@ public class GameEngine {
         return instance;
     }
 
-    private GameEngine(){}
+    private GameEngine(){
 
-    public void createGrid(Context context){
+    }
+
+    public void createGrid(Context context,int bomb, int w,int h){
         Log.e("GameEngine", "createGrid is working");
         this.context=context;
+        BOMB_NUMBER=bomb;
+        WIDTH=w;
+        HEIGHT=h;
         //create grid and store it
         int[][] GeneratedGrid = Generator.generate(BOMB_NUMBER, WIDTH, HEIGHT);
         PrintGrid.print(GeneratedGrid, WIDTH, HEIGHT);
@@ -81,6 +88,7 @@ public class GameEngine {
     }
 
     public boolean checkEnd(){
+
         int bombNotFound=BOMB_NUMBER;
         int notRevealed = WIDTH * HEIGHT ;
         for ( int x = 0; x < WIDTH; x++){
@@ -93,11 +101,10 @@ public class GameEngine {
                 }
             }
         }
-        if( bombNotFound ==0 && notRevealed ==0){
+        if( bombNotFound ==0 ){
             Toast.makeText(context, "GAME WIN", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(context, "bomb"+bombNotFound+"notRevealed"+notRevealed, Toast.LENGTH_LONG).show();
         }
+        MainActivity.bomb.setText(bombNotFound+"");
         return false;
     }
 

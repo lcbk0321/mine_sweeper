@@ -14,6 +14,7 @@ public class Cell extends BaseCell implements View.OnClickListener, View.OnLongC
 
     public Cell (Context context, int position){
         super(context);
+        Log.e("cell","여기니..");
         setPosition(position);
         setOnClickListener(this);
         setOnLongClickListener(this);
