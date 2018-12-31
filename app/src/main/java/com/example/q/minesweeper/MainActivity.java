@@ -17,32 +17,28 @@ import android.os.Handler;
 
 import java.nio.file.WatchEvent;
 
-import static com.example.q.minesweeper.GameEngine.difficulty;
 
 public class MainActivity extends Activity {
 
     static TextView bomb;
-    static TextView timer;
+    static TextView win;
+    static TextView lose;
 
-    public static int BOMB=10;
-    public static int WIDTH=5;
-    public static int HEIGHT=5;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent i= getIntent();
-        BOMB = i.getExtras().getInt("bomb");
-        WIDTH =i.getExtras().getInt("width");
-        HEIGHT =i.getExtras().getInt("height");
         bomb = findViewById(R.id.bomb);
-        timer= findViewById(R.id.timer);
+        win = findViewById(R.id.win);
+        lose = findViewById(R.id.lose);
+        win.bringToFront() ;
+        lose.bringToFront();
         Log.e("MainActivity","intentOK");
         Log.e("MainActivity","onCreate");
-        GameEngine.getInstance().createGrid(MainActivity.this, BOMB, WIDTH, HEIGHT);
-
+        GameEngine.getInstance().createGrid(MainActivity.this);
+        bomb.setText(GameEngine.BOMB_NUMBER + "");
     }
 
     public TextView getBomb(){
@@ -50,7 +46,10 @@ public class MainActivity extends Activity {
     }
 
     public void onResetClicked(View v){
-        GameEngine.getInstance().createGrid(MainActivity.this,BOMB, WIDTH, HEIGHT);
+        GameEngine.getInstance().createGrid(MainActivity.this);
+        bomb.setText(GameEngine.BOMB_NUMBER+"");
+        MainActivity.win.setVisibility(View.INVISIBLE);
+        MainActivity.lose.setVisibility(View.INVISIBLE);
     }
 
 

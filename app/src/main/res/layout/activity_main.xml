@@ -6,27 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/win"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SUCCESS"
+        android:textColor="#7EC0EE"
+        android:textSize="70sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:typeface="sans"
+        android:background="@drawable/win_shape"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lose"
+        android:background="@drawable/lose_shape"
+        android:layout_width="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="YOU DIE"
+        android:textSize="70sp"
+        android:textColor="#FF1515"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"/>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
+        android:layout_marginRight="57dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/bomb"
+        app:layout_constraintBottom_toTopOf="@+id/minesweeperGridView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="0"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -37,46 +60,48 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:text="10"
+        android:textColor="#20202B"
         android:textSize="30dp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/minesweeperGridView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/game"
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
+        android:onClick="onResetClicked"
+        android:text="RESET"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/minesweeperGridView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.q.minesweeper.views.grid.Grid
+        android:id="@+id/minesweeperGridView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="54dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
-            android:onClick="onResetClicked"
-            android:text="RESET"
-            app:layout_constraintBottom_toTopOf="@+id/minesweeperGridView"
-            tools:layout_editor_absoluteX="28dp" />
-
-        <com.example.q.minesweeper.views.grid.Grid
-            android:id="@+id/minesweeperGridView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-        </com.example.q.minesweeper.views.grid.Grid>
-    </LinearLayout>
+    </com.example.q.minesweeper.views.grid.Grid>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,46 +1,37 @@
 package com.example.q.minesweeper;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.q.minesweeper.util.Generator;
 import com.example.q.minesweeper.util.PrintGrid;
 import com.example.q.minesweeper.views.grid.Cell;
 
-import java.nio.file.WatchEvent;
-
 public class GameEngine {
     private static GameEngine instance;
 
-    public static int BOMB_NUMBER;
-    public static int WIDTH;
-    public static int HEIGHT;
-    static int difficulty;
+    public static int BOMB_NUMBER = 20;
+    public static int WIDTH = 13;
+    public static int HEIGHT = 13;
 
     private Context context;
-
 
     private Cell[][] MinesweeperGrid=new Cell[WIDTH][HEIGHT];
 
     public static GameEngine getInstance(){
-        if (instance ==null){
+        if (instance == null){
             instance = new GameEngine();
         }
         return instance;
     }
 
-    private GameEngine(){
+    private GameEngine(){}
 
-    }
-
-    public void createGrid(Context context,int bomb, int w,int h){
+    public void createGrid(Context context){
         Log.e("GameEngine", "createGrid is working");
         this.context=context;
-        BOMB_NUMBER=bomb;
-        WIDTH=w;
-        HEIGHT=h;
         //create grid and store it
         int[][] GeneratedGrid = Generator.generate(BOMB_NUMBER, WIDTH, HEIGHT);
         PrintGrid.print(GeneratedGrid, WIDTH, HEIGHT);
@@ -88,7 +79,6 @@ public class GameEngine {
     }
 
     public boolean checkEnd(){
-
         int bombNotFound=BOMB_NUMBER;
         int notRevealed = WIDTH * HEIGHT ;
         for ( int x = 0; x < WIDTH; x++){
@@ -102,9 +92,9 @@ public class GameEngine {
             }
         }
         if( bombNotFound ==0 ){
-            Toast.makeText(context, "GAME WIN", Toast.LENGTH_LONG).show();
+            MainActivity.win.setVisibility(View.VISIBLE);
         }
-        MainActivity.bomb.setText(bombNotFound+"");
+        MainActivity.bomb.setText(bombNotFound + "");
         return false;
     }
 
@@ -117,8 +107,7 @@ public class GameEngine {
 
     public void onGameLost(){
         //handle lost game
-        Toast.makeText(context, "GAME LOSE", Toast.LENGTH_LONG).show();
-
+        MainActivity.lose.setVisibility(View.VISIBLE);
         for ( int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
                 getCellAt(x, y).setRevealed();
