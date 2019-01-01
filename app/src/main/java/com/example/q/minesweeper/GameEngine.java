@@ -12,9 +12,9 @@ import com.example.q.minesweeper.views.grid.Cell;
 public class GameEngine {
     private static GameEngine instance;
 
-    public static int BOMB_NUMBER = 20;
-    public static int WIDTH = 13;
-    public static int HEIGHT = 13;
+    public static int BOMB_NUMBER = 10;
+    public static int WIDTH = 10;
+    public static int HEIGHT = 10;
 
     private Context context;
 
@@ -93,6 +93,8 @@ public class GameEngine {
         }
         if( bombNotFound ==0 ){
             MainActivity.win.setVisibility(View.VISIBLE);
+            MainActivity.animationView.setVisibility(View.VISIBLE);
+            MainActivity.animationView.playAnimation();
         }
         MainActivity.bomb.setText(bombNotFound + "");
         return false;
@@ -108,6 +110,8 @@ public class GameEngine {
     public void onGameLost(){
         //handle lost game
         MainActivity.lose.setVisibility(View.VISIBLE);
+        MainActivity.loseanimation.setVisibility(View.VISIBLE);
+        MainActivity.loseanimation.playAnimation();
         for ( int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
                 getCellAt(x, y).setRevealed();

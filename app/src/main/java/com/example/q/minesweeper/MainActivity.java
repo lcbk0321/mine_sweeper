@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.nio.file.WatchEvent;
 
 
@@ -23,6 +25,9 @@ public class MainActivity extends Activity {
     static TextView bomb;
     static TextView win;
     static TextView lose;
+    static LottieAnimationView animationView;
+    static LottieAnimationView loseanimation;
+
 
 
 
@@ -33,12 +38,16 @@ public class MainActivity extends Activity {
         bomb = findViewById(R.id.bomb);
         win = findViewById(R.id.win);
         lose = findViewById(R.id.lose);
+        animationView = findViewById(R.id.animation_view);
+        loseanimation = findViewById(R.id.lose_animation);
         win.bringToFront() ;
         lose.bringToFront();
-        Log.e("MainActivity","intentOK");
-        Log.e("MainActivity","onCreate");
+        animationView.bringToFront();
+        loseanimation.bringToFront();
         GameEngine.getInstance().createGrid(MainActivity.this);
         bomb.setText(GameEngine.BOMB_NUMBER + "");
+        animationView.setAnimation("confetti_blast.json");
+        loseanimation.setAnimation("uh_oh.json");
     }
 
     public TextView getBomb(){
@@ -50,6 +59,8 @@ public class MainActivity extends Activity {
         bomb.setText(GameEngine.BOMB_NUMBER+"");
         MainActivity.win.setVisibility(View.INVISIBLE);
         MainActivity.lose.setVisibility(View.INVISIBLE);
+        MainActivity.animationView.setVisibility(View.INVISIBLE);
+        MainActivity.loseanimation.setVisibility(View.INVISIBLE);
     }
 
 
